@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASHI LEATHER | Premium Jackets</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <!-- Lenis Smooth Scroll -->
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Syne', 'sans-serif'],
+                    },
+                    colors: {
+                        'neutral-950': '#1b110a',
+                        'neutral-900': '#2c1e16',
+                        'gray-200': '#e5d3c8',
+                        'gray-300': '#d1b8a8',
+                        'gray-400': '#b49581',
+                        'gray-500': '#966a4f',
+                        'gray-700': '#523422',
+                        'white': '#fdfbf7',
+                        'black': '#0d0806'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #1b110a;
+            color: #fdfbf7;
+            cursor: none;
+            overflow-x: hidden;
+        }
+
+        /* Prevent scrolling during preloader */
+        .no-scroll {
+            overflow: hidden !important;
+        }
+
+        /* Subtle Premium Noise Texture */
+        .noise-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none; z-index: 9998;
+            opacity: 0.04;
+            background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+        }
+
+        /* Preloader */
+        #preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #0d0806; z-index: 10000;
+            display: flex; justify-content: center; align-items: center;
+        }
+
+        .text-4xl { font-size: 2rem !important; line-height: 2.5rem; }
+
+        /* Custom Cursor */
+        .cursor-dot, .cursor-outline {
+            position: fixed; top: 0; left: 0; transform: translate(-50%, -50%);
+            border-radius: 50%; z-index: 9999; pointer-events: none;
+        }
+        .cursor-dot { width: 6px; height: 6px; background-color: #fdfbf7; }
+        .cursor-outline {
+            width: 40px; height: 40px; border: 1px solid rgba(253, 251, 247, 0.3);
+            transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), height 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease;
+        }
+        .cursor-active .cursor-outline {
+            width: 70px; height: 70px; background-color: rgba(253, 251, 247, 0.05);
+            border-color: rgba(253, 251, 247, 0.8); backdrop-filter: blur(4px);
+        }
+
+        /* Masking & Reveals */
+        .reveal-mask { display: block; overflow: hidden; line-height: 1.1; }
+        .reveal-text { display: inline-block; transform: translateY(110%); will-change: transform; }
+        
+        /* Advanced Image Clip Reveal */
+        .clip-reveal { clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%); }
+
+        ::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="antialiased selection:bg-gray-400 selection:text-black no-scroll">
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <h2 class="font-display font-bold text-2xl tracking-[0.3em] text-white overflow-hidden">
+            <span class="inline-block transform translate-y-full preloader-text">ASHI LEATHER.</span>
+        </h2>
+    </div>
+
+    <div class="noise-bg"></div>
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <nav id="main-nav" class="fixed top-0 left-0 w-full z-50 px-6 py-8 flex justify-between items-center transition-all duration-700 pointer-events-none">
+        <a href="#" class="font-display font-bold text-2xl tracking-tighter pointer-events-auto hover-target magnetic relative p-2">ASHI LEATHER.</a>
+        <div class="hidden md:flex gap-8 text-sm uppercase tracking-widest font-medium pointer-events-auto">
+            <a href="#collections" class="hover-target magnetic p-2 relative after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-white after:transition-all after:duration-500 hover:after:w-full">Men</a>
+            <a href="#collections" class="hover-target magnetic p-2 relative after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-white after:transition-all after:duration-500 hover:after:w-full">Women</a>
+            <a href="#craftsmanship" class="hover-target magnetic p-2 relative after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-white after:transition-all after:duration-500 hover:after:w-full">Craft</a>
+            <a href="#heritage" class="hover-target magnetic p-2 relative after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-white after:transition-all after:duration-500 hover:after:w-full">Heritage</a>
+            <a href="#products" class="hover-target magnetic p-2 relative after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-white after:transition-all after:duration-500 hover:after:w-full">Shop</a>
+        </div>
+        <button class="pointer-events-auto hover-target magnetic p-2 md:hidden">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        </button>
+    </nav>
+
+    <header id="hero" class="relative w-full h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img id="hero-bg" src="https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=2400&auto=format&fit=crop" alt="Premium Leather Jacket" class="w-full h-[120%] object-cover object-center transform -translate-y-[10%] scale-110" />
+            <div class="absolute inset-0 bg-black/50 bg-gradient-to-b from-transparent to-neutral-950"></div>
+        </div>
+
+        <div class="relative z-10 text-center flex flex-col items-center mt-16 px-4">
+            <h1 class="font-display font-bold text-5xl md:text-8xl lg:text-[10rem] uppercase tracking-tighter leading-none text-white">
+                <span class="reveal-mask"><span class="reveal-text">Raw</span></span>
+                <span class="reveal-mask"><span class="reveal-text text-gray-500 italic font-medium pr-4 md:pr-8">Elegance</span></span>
+            </h1>
+            <div class="reveal-mask mt-4 md:mt-8">
+                <p class="reveal-text text-sm md:text-lg tracking-[0.3em] text-gray-300 uppercase">
+                    The Modern Leather Standard
+                </p>
+            </div>
+            
+            <a href="#collections" class="reveal-fade mt-16 inline-flex items-center gap-3 text-sm tracking-widest uppercase border border-white/30 px-8 py-4 rounded-full hover:bg-white hover:text-black transition-colors duration-500 hover-target magnetic">
+                Explore Collection
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+            </a>
+        </div>
+    </header>
+
+    <section id="collections" class="relative w-full min-h-screen flex flex-col md:flex-row bg-neutral-950">
+        <div class="collection-panel clip-reveal group relative w-full md:w-1/2 h-[50vh] md:h-screen overflow-hidden cursor-pointer hover-target">
+            <img src="https://images.unsplash.com/photo-1521223890158-f9f7c3d5d504?q=80&w=680&auto=format&fit=crop" alt="Men's Leather" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[2s] cubic-bezier(0.16, 1, 0.3, 1) group-hover:scale-110" />
+            <div class="absolute inset-0 bg-black/50 transition-colors duration-700 group-hover:bg-black/20"></div>
+            <div class="absolute inset-0 flex flex-col items-center justify-center p-8 text-center z-10">
+                <h2 class="font-display text-4xl md:text-6xl lg:text-7xl font-bold uppercase tracking-tighter transition-transform duration-700 group-hover:-translate-y-4">Men's</h2>
+                <div class="overflow-hidden mt-4">
+                    <p class="text-sm tracking-widest uppercase text-gray-200 transform translate-y-full opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">View The Archive</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="collection-panel clip-reveal group relative w-full md:w-1/2 h-[50vh] md:h-screen overflow-hidden cursor-pointer hover-target">
+            <img src="https://images.unsplash.com/photo-1602370463198-086436840055?w=500&auto=format&fit=crop" alt="Women's Leather" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[2s] cubic-bezier(0.16, 1, 0.3, 1) group-hover:scale-110" />
+            <div class="absolute inset-0 bg-black/50 transition-colors duration-700 group-hover:bg-black/20"></div>
+            <div class="absolute inset-0 flex flex-col items-center justify-center p-8 text-center z-10">
+                <h2 class="font-display text-4xl md:text-6xl lg:text-7xl font-bold uppercase tracking-tighter transition-transform duration-700 group-hover:-translate-y-4">Women's</h2>
+                <div class="overflow-hidden mt-4">
+                    <p class="text-sm tracking-widest uppercase text-gray-200 transform translate-y-full opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">View The Archive</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="craftsmanship" class="py-40 px-6 md:px-12 lg:px-24 bg-neutral-900 overflow-hidden relative border-t border-white/5">
+        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-20">
+            <div class="w-full lg:w-1/2 relative clip-reveal craft-image-wrap">
+                <div class="aspect-[4/5] overflow-hidden rounded-sm relative">
+                    <img src="https://plus.unsplash.com/premium_photo-1681492759637-f817b69203c1?w=500&auto=format&fit=crop" alt="Leather Craftsmanship" class="w-full h-[120%] object-cover craft-img-parallax -translate-y-[10%]" />
+                    <div class="absolute inset-0 bg-black/20"></div>
+                </div>
+                <div class="absolute -bottom-10 -right-10 w-48 h-48 bg-neutral-950 p-6 rounded-full flex items-center justify-center border border-white/5 hidden md:flex animate-[spin_12s_linear_infinite] shadow-2xl backdrop-blur-md">
+                    <svg viewBox="0 0 100 100" class="w-full h-full fill-white/80">
+                        <path id="circlePath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="none" />
+                        <text class="text-[11px] font-bold uppercase tracking-[0.2em] font-sans">
+                            <textPath href="#circlePath">Premium Leather • Handcrafted • Legacy •</textPath>
+                        </text>
+                    </svg>
+                </div>
+            </div>
+            <div class="w-full lg:w-1/2 flex flex-col justify-center">
+                <h3 class="font-display text-4xl md:text-5xl sm:text-4xl font-bold uppercase tracking-tighter mb-8 craft-text-reveal">The Art of <br><span class="text-gray-500 italic">Perfection</span></h3>
+                <p class="text-gray-400 text-lg leading-relaxed mb-6 font-light craft-text-reveal">Every piece in our archive is born from a meticulous selection of full-grain leathers, ethically sourced and tanned using age-old techniques.</p>
+                <p class="text-gray-400 text-lg leading-relaxed mb-10 font-light craft-text-reveal">Our master artisans spend upwards of 40 hours cutting, stitching, and finishing each jacket by hand. This isn't mass production; this is preserving a legacy of sartorial excellence.</p>
+                <div class="craft-text-reveal">
+                    <a href="#features" class="inline-flex items-center gap-3 text-sm tracking-widest uppercase border-b border-white/50 pb-1 hover-target magnetic transition-all hover:border-white">Discover Our Process</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="heritage" class="py-40 px-6 md:px-12 lg:px-24 bg-neutral-950 border-t border-white/5 relative">
+        <div class="max-w-7xl mx-auto flex flex-col-reverse lg:flex-row items-center gap-20">
+            <div class="w-full lg:w-1/2 flex flex-col justify-center lg:pr-12">
+                <h4 class="text-gray-500 text-sm tracking-[0.3em] uppercase mb-4 heritage-reveal">Our Roots</h4>
+                <h3 class="font-display text-4xl md:text-5xl font-bold uppercase tracking-tighter mb-8 heritage-reveal">Decades in <br>The Making</h3>
+                <p class="text-gray-400 text-lg leading-relaxed mb-6 font-light heritage-reveal">What started as a small atelier in 1984 has grown into a definitive archive of outerwear. We drew inspiration from the rebel subcultures of the 20th century, reimagining their iconic silhouettes for the modern connoisseur.</p>
+                <p class="text-gray-400 text-lg leading-relaxed mb-10 font-light heritage-reveal">The Archive isn't just about clothing. It's about character. The scuffs, the natural patina, the way the leather molds perfectly to your frame over years of movement—that is the poetry of true leather craft.</p>
+            </div>
+            <div class="w-full lg:w-1/2 relative clip-reveal h-[70vh] rounded-sm overflow-hidden group">
+                <img src="https://images.unsplash.com/photo-1599839619722-39751411ea63?q=80&w=800&auto=format&fit=crop" alt="Vintage Leather" class="w-full h-[120%] object-cover heritage-img-parallax -translate-y-[10%]" />
+                <div class="absolute inset-0 bg-neutral-900/40 mix-blend-multiply"></div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="products" class="py-40 px-6 md:px-12 lg:px-24 bg-neutral-900 border-t border-white/5">
+        <div class="mb-24 flex flex-col md:flex-row justify-between items-end gap-6 product-header">
+            <div>
+                <h3 class="font-display text-4xl md:text-5xl font-bold uppercase tracking-tighter">New Arrivals</h3>
+                <p class="text-gray-400 mt-4 tracking-wider text-sm uppercase">Curated pieces for the bold</p>
+            </div>
+            <a href="shop.html" class="group flex items-center gap-2 text-sm uppercase tracking-widest hover-target magnetic border-b border-white/50 hover:border-white pb-1 transition-all">
+                Shop All <span class="transform transition-transform group-hover:translate-x-2">→</span>
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-10">
+            <!-- Product Card 1 -->
+            <div class="product-card group cursor-pointer hover-target">
+                <div class="relative overflow-hidden aspect-[3/4] bg-neutral-950 rounded-sm">
+                    <img src="https://images.unsplash.com/photo-1615908280461-d7a332579330?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGxlYXRoZXIlMjBqYWNrZXQlMjBNRU5TfGVufDB8fDB8fHww" alt="The Classic Biker" class="object-cover w-full h-full transition-transform duration-1000 cubic-bezier(0.16, 1, 0.3, 1) group-hover:scale-110 opacity-80 group-hover:opacity-100" />
+                    <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/90 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.16, 1, 0.3, 1)">
+                        <button class="whatsapp-btn w-full py-4 bg-white text-black font-semibold uppercase text-xs tracking-[0.2em] hover:bg-gray-200 transition-colors flex items-center justify-center gap-3">
+                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                            Order via WhatsApp
+                        </button>
+                    </div>
+                </div>
+                <div class="mt-6 flex justify-between items-start">
+                    <div>
+                        <h4 class="product-title font-display font-bold text-lg uppercase tracking-tight">The Classic Biker</h4>
+                        <p class="text-gray-500 text-sm mt-1">Men's Moto Jacket</p>
+                    </div>
+                    <span class="product-price font-medium">$895</span>
+                </div>
+            </div>
+            
+            <!-- Product Card 2 -->
+            <div class="product-card group cursor-pointer hover-target">
+                <div class="relative overflow-hidden aspect-[3/4] bg-neutral-950 rounded-sm">
+                    <img src="https://images.unsplash.com/photo-1615397815341-bb06f6d55c94?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGxlYXRoZXIlMjBqYWNrZXQlMjB3b21lbnxlbnwwfHwwfHx8MA%3D%3D" alt="The Asymmetric" class="object-cover w-full h-full transition-transform duration-1000 cubic-bezier(0.16, 1, 0.3, 1) group-hover:scale-110 opacity-80 group-hover:opacity-100" />
+                    <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/90 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.16, 1, 0.3, 1)">
+                        <button class="whatsapp-btn w-full py-4 bg-white text-black font-semibold uppercase text-xs tracking-[0.2em] hover:bg-gray-200 transition-colors flex items-center justify-center gap-3">
+                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                            Order via WhatsApp
+                        </button>
+                    </div>
+                </div>
+                <div class="mt-6 flex justify-between items-start">
+                    <div>
+                        <h4 class="product-title font-display font-bold text-lg uppercase tracking-tight">The Asymmetric</h4>
+                        <p class="text-gray-500 text-sm mt-1">Women's Zip Leather</p>
+                    </div>
+                    <span class="product-price font-medium">$925</span>
+                </div>
+            </div>
+
+            <!-- Product Card 3 -->
+            <div class="product-card group cursor-pointer hover-target">
+                <div class="relative overflow-hidden aspect-[3/4] bg-neutral-950 rounded-sm">
+                    <img src="https://images.unsplash.com/photo-1641943632479-3798ef1e14c6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGxlYXRoZXIlMjBqYWNrZXQlMjBNRU5TfGVufDB8fDB8fHww" alt="The Aviator" class="object-cover w-full h-full transition-transform duration-1000 cubic-bezier(0.16, 1, 0.3, 1) group-hover:scale-110 opacity-80 group-hover:opacity-100" />
+                    <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/90 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.16, 1, 0.3, 1)">
+                        <button class="whatsapp-btn w-full py-4 bg-white text-black font-semibold uppercase text-xs tracking-[0.2em] hover:bg-gray-200 transition-colors flex items-center justify-center gap-3">
+                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                            Order via WhatsApp
+                        </button>
+                    </div>
+                </div>
+                <div class="mt-6 flex justify-between items-start">
+                    <div>
+                        <h4 class="product-title font-display font-bold text-lg uppercase tracking-tight">The Aviator</h4>
+                        <p class="text-gray-500 text-sm mt-1">Men's Shearling Collar</p>
+                    </div>
+                    <span class="product-price font-medium">$1,250</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RESTORED: Enhanced Features Section to match image_54d968.png -->
+    <section id="features" class="py-28 px-6 md:px-12 lg:px-24 bg-neutral-950 border-t border-white/5 relative z-10 overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-neutral-900/40 via-neutral-950 to-neutral-950 -z-10"></div>
+        
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-16 text-center">
+            <!-- Hand-Stitched -->
+            <div class="feature-item group flex flex-col items-center">
+                <div class="w-[72px] h-[72px] rounded-full border border-white/20 flex items-center justify-center mb-8 text-gray-300 group-hover:text-white group-hover:border-white transition-all duration-500 group-hover:scale-105 group-hover:bg-white/5">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="transform -rotate-45">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="17 8 12 3 7 8" />
+                        <line x1="12" y1="3" x2="12" y2="15" />
+                    </svg>
+                </div>
+                <h4 class="font-display font-extrabold text-[22px] uppercase tracking-[0.15em] mb-4 text-white group-hover:text-gray-200 transition-colors">Hand-Stitched</h4>
+                <p class="text-gray-500 text-[15px] leading-relaxed max-w-[280px] mx-auto font-light">Expertly crafted by master artisans using traditional saddlery techniques for unparalleled durability.</p>
+            </div>
+            
+            <!-- Sustainable Leather -->
+            <div class="feature-item group flex flex-col items-center">
+                <div class="w-[72px] h-[72px] rounded-full border border-white/20 flex items-center justify-center mb-8 text-gray-300 group-hover:text-white group-hover:border-white transition-all duration-500 group-hover:scale-105 group-hover:bg-white/5">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z M7 7h.01"/>
+                    </svg>
+                </div>
+                <h4 class="font-display font-extrabold text-[22px] uppercase tracking-[0.15em] mb-4 text-white group-hover:text-gray-200 transition-colors">Sustainable Leather</h4>
+                <p class="text-gray-500 text-[15px] leading-relaxed max-w-[280px] mx-auto font-light">Sourced exclusively from ethical tanneries that utilize vegetable-based, eco-friendly processes.</p>
+            </div>
+
+            <!-- Lifetime Warranty -->
+            <div class="feature-item group flex flex-col items-center">
+                <div class="w-[72px] h-[72px] rounded-full border border-white/20 flex items-center justify-center mb-8 text-gray-300 group-hover:text-white group-hover:border-white transition-all duration-500 group-hover:scale-105 group-hover:bg-white/5">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                </div>
+                <h4 class="font-display font-extrabold text-[22px] uppercase tracking-[0.15em] mb-4 text-white group-hover:text-gray-200 transition-colors">Lifetime Warranty</h4>
+                <p class="text-gray-500 text-[15px] leading-relaxed max-w-[280px] mx-auto font-light">We stand behind our craft. Every piece comes with a lifetime guarantee against hardware or stitching faults.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- RESTORED: Testimonials Section -->
+    <section id="testimonials" class="py-32 px-6 md:px-12 lg:px-24 bg-neutral-900 border-t border-white/5 relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-20 testimonial-header">
+                <h4 class="text-gray-500 text-sm tracking-[0.3em] uppercase mb-4">Client Archives</h4>
+                <h3 class="font-display text-4xl md:text-5xl font-bold uppercase tracking-tighter">Words From <br>The Bold</h3>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card bg-neutral-950 p-10 rounded-sm border border-white/5 hover:border-white/20 transition-colors hover-target group">
+                    <svg class="w-8 h-8 text-gray-600 mb-6 group-hover:text-gray-400 transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+                    <p class="text-gray-300 font-light leading-relaxed mb-8 italic">"The craftsmanship is unparalleled. It felt perfectly broken-in from day one. I've owned jackets triple this price that didn't feel half as substantial."</p>
+                    <div class="flex items-center gap-4 border-t border-white/10 pt-6">
+                        <div>
+                            <h5 class="font-display font-bold uppercase tracking-wider text-sm text-white">Marcus T.</h5>
+                            <p class="text-gray-500 text-xs uppercase tracking-widest mt-1">London, UK</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card bg-neutral-950 p-10 rounded-sm border border-white/5 hover:border-white/20 transition-colors hover-target group">
+                    <svg class="w-8 h-8 text-gray-600 mb-6 group-hover:text-gray-400 transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+                    <p class="text-gray-300 font-light leading-relaxed mb-8 italic">"Finally found a women's moto that doesn't compromise on heavy-duty leather for the sake of silhouette. The Asymmetric is an absolute staple."</p>
+                    <div class="flex items-center gap-4 border-t border-white/10 pt-6">
+                        <div>
+                            <h5 class="font-display font-bold uppercase tracking-wider text-sm text-white">Elena R.</h5>
+                            <p class="text-gray-500 text-xs uppercase tracking-widest mt-1">New York, USA</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card bg-neutral-950 p-10 rounded-sm border border-white/5 hover:border-white/20 transition-colors hover-target group">
+                    <svg class="w-8 h-8 text-gray-600 mb-6 group-hover:text-gray-400 transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+                    <p class="text-gray-300 font-light leading-relaxed mb-8 italic">"The leather smells incredible, the stitching is flawless, and the hardware is seriously heavy. This isn't fashion; it's a legacy piece I'll pass down."</p>
+                    <div class="flex items-center gap-4 border-t border-white/10 pt-6">
+                        <div>
+                            <h5 class="font-display font-bold uppercase tracking-wider text-sm text-white">James W.</h5>
+                            <p class="text-gray-500 text-xs uppercase tracking-widest mt-1">Berlin, DE</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RESTORED: Newsletter Section -->
+    <section id="newsletter" class="py-32 px-6 md:px-12 lg:px-24 bg-neutral-900 border-t border-white/5 relative overflow-hidden flex justify-center items-center">
+        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-gray-700/10 rounded-full blur-[100px] pointer-events-none transform translate-x-1/2 -translate-y-1/2"></div>
+        
+        <div class="relative z-10 text-center max-w-2xl mx-auto newsletter-reveal">
+            <h3 class="font-display text-4xl md:text-5xl font-bold uppercase tracking-tighter mb-4">Join The Club</h3>
+            <p class="text-gray-400 text-sm md:text-base leading-relaxed mb-8">
+                Subscribe to receive early access to limited archival releases, exclusive editorial pieces, and behind-the-scenes insights into our craftsmanship.
+            </p>
+            <form class="flex flex-col sm:flex-row gap-4 justify-center pointer-events-auto">
+                <input type="email" placeholder="ENTER YOUR EMAIL" class="bg-neutral-950 border border-white/10 px-6 py-4 rounded-sm text-sm tracking-widest uppercase text-white focus:outline-none focus:border-gray-500 transition-colors w-full sm:w-2/3 hover-target" required>
+                <button type="submit" class="bg-white text-black px-8 py-4 rounded-sm font-semibold text-sm tracking-widest uppercase hover:bg-gray-200 transition-colors hover-target magnetic">
+                    Subscribe
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-24 px-6 md:px-12 lg:px-24 border-t border-white/5 bg-neutral-950">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-10">
+            <div class="text-center md:text-left">
+                <h2 class="font-display font-bold text-3xl tracking-tighter mb-4 text-white">ASHI LEATHER.</h2>
+                <p class="text-gray-500 text-sm tracking-[0.2em] uppercase">Uncompromising quality since 2024.</p>
+            </div>
+            
+            <div class="flex gap-8 text-xs uppercase tracking-widest font-medium pointer-events-auto">
+                <a href="#" class="text-gray-400 hover:text-white transition-colors hover-target">Instagram</a>
+                <a href="#" class="text-gray-400 hover:text-white transition-colors hover-target">Twitter</a>
+                <a href="#" class="text-gray-400 hover:text-white transition-colors hover-target">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // --- 1. Initialize Lenis Smooth Scroll ---
+        const lenis = new Lenis({
+            duration: 1.5,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,
+            mouseMultiplier: 1,
+            smoothTouch: false,
+            touchMultiplier: 2,
+            infinite: false,
+        });
+
+        // Integrate Lenis with GSAP ScrollTrigger
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => {
+            lenis.raf(time * 1000);
+        });
+        gsap.ticker.lagSmoothing(0, 0);
+
+
+        // --- 2. Custom Cursor Logic ---
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
+        
+        window.addEventListener('mousemove', (e) => {
+            gsap.set(cursorDot, { x: e.clientX, y: e.clientY });
+            gsap.to(cursorOutline, { x: e.clientX, y: e.clientY, duration: 0.2, ease: "power2.out" });
+        });
+
+        const hoverTargets = document.querySelectorAll('.hover-target');
+        hoverTargets.forEach(target => {
+            target.addEventListener('mouseenter', () => document.body.classList.add('cursor-active'));
+            target.addEventListener('mouseleave', () => document.body.classList.remove('cursor-active'));
+        });
+
+        // Magnetic Button Effect
+        const magnets = document.querySelectorAll('.magnetic');
+        magnets.forEach(magnet => {
+            magnet.addEventListener('mousemove', function(e) {
+                const rect = this.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                gsap.to(this, { x: x * 0.3, y: y * 0.3, duration: 0.5, ease: "power3.out" });
+            });
+            magnet.addEventListener('mouseleave', function() {
+                gsap.to(this, { x: 0, y: 0, duration: 0.7, ease: "elastic.out(1, 0.3)" });
+            });
+        });
+
+        // --- 3. Navbar Scroll Logic ---
+        const navbar = document.getElementById('main-nav');
+        lenis.on('scroll', (e) => {
+            if (e.scroll > 50) {
+                navbar.classList.add('bg-neutral-950/90', 'backdrop-blur-md', 'py-4', 'border-b', 'border-white/5');
+                navbar.classList.remove('py-8');
+            } else {
+                navbar.classList.remove('bg-neutral-950/90', 'backdrop-blur-md', 'py-4', 'border-b', 'border-white/5');
+                navbar.classList.add('py-8');
+            }
+        });
+
+        // --- 4. Premium Load Animations (Preloader & Hero) ---
+        window.addEventListener("load", () => {
+            const tl = gsap.timeline();
+            
+            tl.to('.preloader-text', { y: '0%', duration: 1, ease: 'expo.out' })
+              .to('#preloader', { y: '-100%', duration: 1.2, ease: 'expo.inOut', delay: 0.5, onComplete: () => {
+                  document.body.classList.remove('no-scroll');
+                  ScrollTrigger.refresh();
+              }})
+              .to('#hero-bg', { scale: 1, duration: 2.5, ease: 'power3.out' }, "-=1")
+              .to('.reveal-text', { y: '0%', duration: 1.5, ease: 'expo.out', stagger: 0.15 }, "-=1.5")
+              .fromTo('.reveal-fade', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 1.5, ease: 'expo.out' }, "-=1.2");
+        });
+
+        // --- 5. Buttery Smooth ScrollTrigger Animations ---
+
+        gsap.to("#hero-bg", {
+            yPercent: 20,
+            ease: "none",
+            scrollTrigger: { trigger: "#hero", start: "top top", end: "bottom top", scrub: true }
+        });
+
+        gsap.utils.toArray('.clip-reveal').forEach((panel) => {
+            gsap.to(panel, {
+                clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+                duration: 1.5,
+                ease: "expo.out",
+                scrollTrigger: {
+                    trigger: panel,
+                    start: "top 85%",
+                }
+            });
+        });
+
+        gsap.to(".craft-img-parallax", {
+            yPercent: 20,
+            ease: "none",
+            scrollTrigger: { trigger: ".craft-image-wrap", start: "top bottom", end: "bottom top", scrub: true }
+        });
+
+        gsap.from(".craft-text-reveal", {
+            y: 50, opacity: 0, duration: 1.5, stagger: 0.15, ease: "expo.out",
+            scrollTrigger: { trigger: "#craftsmanship", start: "top 70%" }
+        });
+
+        gsap.to(".heritage-img-parallax", {
+            yPercent: 20,
+            ease: "none",
+            scrollTrigger: { trigger: "#heritage", start: "top bottom", end: "bottom top", scrub: true }
+        });
+
+        gsap.from(".heritage-reveal", {
+            y: 50, opacity: 0, duration: 1.5, stagger: 0.15, ease: "expo.out",
+            scrollTrigger: { trigger: "#heritage", start: "top 75%" }
+        });
+
+        gsap.from(".product-header", {
+            y: 50, opacity: 0, duration: 1.5, ease: "expo.out",
+            scrollTrigger: { trigger: "#products", start: "top 80%" }
+        });
+
+        gsap.from(".product-card", {
+            y: 80, opacity: 0, duration: 1.5, ease: "expo.out", stagger: 0.2,
+            scrollTrigger: { trigger: ".product-card", start: "top 85%" }
+        });
+
+        // Restored Features Animation
+        gsap.from(".feature-item", {
+            y: 50, opacity: 0, duration: 1.5, stagger: 0.2, ease: "expo.out",
+            scrollTrigger: { trigger: "#features", start: "top 80%" }
+        });
+
+        // Restored Testimonials Animation
+        gsap.from(".testimonial-header", {
+            y: 30, opacity: 0, duration: 1.5, ease: "expo.out",
+            scrollTrigger: { trigger: "#testimonials", start: "top 80%" }
+        });
+
+        gsap.from(".testimonial-card", {
+            y: 50, opacity: 0, duration: 1.5, stagger: 0.15, ease: "expo.out",
+            scrollTrigger: { trigger: ".testimonial-card", start: "top 85%" }
+        });
+
+        // Restored Newsletter Animation
+        gsap.from(".newsletter-reveal", {
+            scale: 0.9, opacity: 0, duration: 1.5, ease: "expo.out",
+            scrollTrigger: { trigger: "#newsletter", start: "top 85%" }
+        });
+
+        // Anchor Link Smooth Scroll Fix for Lenis
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                lenis.scrollTo(this.getAttribute('href'), {
+                    duration: 1.5,
+                    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+                });
+            });
+        });
+
+        // WhatsApp Ordering Logic
+        document.querySelectorAll('.whatsapp-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation(); 
+                
+                const card = btn.closest('.product-card');
+                const titleElement = card.querySelector('.product-title');
+                const priceElement = card.querySelector('.product-price');
+                
+                if (titleElement && priceElement) {
+                    const title = titleElement.innerText.trim();
+                    const price = priceElement.innerText.trim();
+                    const phoneNumber = "923122933457";
+                    const message = `Hi, I am interested in purchasing ${title} priced at ${price}. Please provide more details.`;
+                    
+                    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+                    window.open(whatsappUrl, '_blank');
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>
