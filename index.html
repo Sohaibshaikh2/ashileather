@@ -45,7 +45,7 @@
             overflow-x: hidden;
         }
 
-        /* Prevent scrolling during preloader */
+        /* Prevent scrolling during preloader or mobile menu */
         .no-scroll {
             overflow: hidden !important;
         }
@@ -106,19 +106,38 @@
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
 
-    <nav id="main-nav" class="fixed top-0 left-0 w-full z-50 px-6 py-8 flex justify-between items-center transition-all duration-700 pointer-events-none">
+    <!-- Navigation -->
+    <nav id="main-nav" class="fixed top-0 left-0 w-full z-40 px-6 py-8 flex justify-between items-center transition-all duration-700 pointer-events-none">
         <a href="#" class="font-display font-bold text-2xl tracking-tighter pointer-events-auto hover-target magnetic relative p-2">ASHI LEATHER.</a>
+        
+        <!-- Desktop Links -->
         <div class="hidden md:flex gap-8 text-sm uppercase tracking-widest font-medium pointer-events-auto">
             <a href="#collections" class="hover-target magnetic p-2 relative after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-white after:transition-all after:duration-500 hover:after:w-full">Men</a>
             <a href="#collections" class="hover-target magnetic p-2 relative after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-white after:transition-all after:duration-500 hover:after:w-full">Women</a>
             <a href="#craftsmanship" class="hover-target magnetic p-2 relative after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-white after:transition-all after:duration-500 hover:after:w-full">Craft</a>
             <a href="#heritage" class="hover-target magnetic p-2 relative after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-white after:transition-all after:duration-500 hover:after:w-full">Heritage</a>
-            <a href="#products" class="hover-target magnetic p-2 relative after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-white after:transition-all after:duration-500 hover:after:w-full">Shop</a>
+            <a href="shop.html" class="hover-target magnetic p-2 relative after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-white after:transition-all after:duration-500 hover:after:w-full">Shop</a>
         </div>
-        <button class="pointer-events-auto hover-target magnetic p-2 md:hidden">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        
+        <!-- Mobile Toggle Button -->
+        <button id="mobile-menu-btn" class="pointer-events-auto hover-target p-2 md:hidden">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
         </button>
     </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-neutral-950/95 backdrop-blur-xl z-50 flex flex-col items-center justify-center translate-x-full transition-transform duration-500 ease-[cubic-bezier(0.87,0,0.13,1)]">
+        <button id="close-menu-btn" class="absolute top-8 right-6 p-2 text-white hover-target">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+        <div class="flex flex-col gap-8 text-center text-xl uppercase tracking-widest font-medium">
+            <a href="#collections" class="mobile-link text-white hover:text-gray-400 transition-colors">Men</a>
+            <a href="#collections" class="mobile-link text-white hover:text-gray-400 transition-colors">Women</a>
+            <a href="#craftsmanship" class="mobile-link text-white hover:text-gray-400 transition-colors">Craft</a>
+            <a href="#heritage" class="mobile-link text-white hover:text-gray-400 transition-colors">Heritage</a>
+            <a href="shop.html" class="mobile-link text-white hover:text-gray-400 transition-colors">Shop</a>
+        </div>
+    </div>
 
     <header id="hero" class="relative w-full h-screen flex items-center justify-center overflow-hidden">
         <div class="absolute inset-0 z-0">
@@ -225,7 +244,7 @@
             <!-- Product Card 1 -->
             <div class="product-card group cursor-pointer hover-target">
                 <div class="relative overflow-hidden aspect-[3/4] bg-neutral-950 rounded-sm">
-                    <img src="https://images.unsplash.com/photo-1615908280461-d7a332579330?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGxlYXRoZXIlMjBqYWNrZXQlMjBNRU5TfGVufDB8fDB8fHww" alt="The Classic Biker" class="object-cover w-full h-full transition-transform duration-1000 cubic-bezier(0.16, 1, 0.3, 1) group-hover:scale-110 opacity-80 group-hover:opacity-100" />
+                    <img src="https://images.unsplash.com/photo-1615908280461-d7a332579330?w=500&auto=format&fit=crop&q=60" alt="The Classic Biker" class="object-cover w-full h-full transition-transform duration-1000 cubic-bezier(0.16, 1, 0.3, 1) group-hover:scale-110 opacity-80 group-hover:opacity-100" />
                     <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/90 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.16, 1, 0.3, 1)">
                         <button class="whatsapp-btn w-full py-4 bg-white text-black font-semibold uppercase text-xs tracking-[0.2em] hover:bg-gray-200 transition-colors flex items-center justify-center gap-3">
                             <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
@@ -245,7 +264,7 @@
             <!-- Product Card 2 -->
             <div class="product-card group cursor-pointer hover-target">
                 <div class="relative overflow-hidden aspect-[3/4] bg-neutral-950 rounded-sm">
-                    <img src="https://images.unsplash.com/photo-1615397815341-bb06f6d55c94?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGxlYXRoZXIlMjBqYWNrZXQlMjB3b21lbnxlbnwwfHwwfHx8MA%3D%3D" alt="The Asymmetric" class="object-cover w-full h-full transition-transform duration-1000 cubic-bezier(0.16, 1, 0.3, 1) group-hover:scale-110 opacity-80 group-hover:opacity-100" />
+                    <img src="https://images.unsplash.com/photo-1615397815341-bb06f6d55c94?w=500&auto=format&fit=crop&q=60" alt="The Asymmetric" class="object-cover w-full h-full transition-transform duration-1000 cubic-bezier(0.16, 1, 0.3, 1) group-hover:scale-110 opacity-80 group-hover:opacity-100" />
                     <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/90 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.16, 1, 0.3, 1)">
                         <button class="whatsapp-btn w-full py-4 bg-white text-black font-semibold uppercase text-xs tracking-[0.2em] hover:bg-gray-200 transition-colors flex items-center justify-center gap-3">
                             <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
@@ -265,7 +284,7 @@
             <!-- Product Card 3 -->
             <div class="product-card group cursor-pointer hover-target">
                 <div class="relative overflow-hidden aspect-[3/4] bg-neutral-950 rounded-sm">
-                    <img src="https://images.unsplash.com/photo-1641943632479-3798ef1e14c6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGxlYXRoZXIlMjBqYWNrZXQlMjBNRU5TfGVufDB8fDB8fHww" alt="The Aviator" class="object-cover w-full h-full transition-transform duration-1000 cubic-bezier(0.16, 1, 0.3, 1) group-hover:scale-110 opacity-80 group-hover:opacity-100" />
+                    <img src="https://images.unsplash.com/photo-1641943632479-3798ef1e14c6?w=500&auto=format&fit=crop&q=60" alt="The Aviator" class="object-cover w-full h-full transition-transform duration-1000 cubic-bezier(0.16, 1, 0.3, 1) group-hover:scale-110 opacity-80 group-hover:opacity-100" />
                     <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/90 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.16, 1, 0.3, 1)">
                         <button class="whatsapp-btn w-full py-4 bg-white text-black font-semibold uppercase text-xs tracking-[0.2em] hover:bg-gray-200 transition-colors flex items-center justify-center gap-3">
                             <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
@@ -416,10 +435,6 @@
             direction: 'vertical',
             gestureDirection: 'vertical',
             smooth: true,
-            mouseMultiplier: 1,
-            smoothTouch: false,
-            touchMultiplier: 2,
-            infinite: false,
         });
 
         // Integrate Lenis with GSAP ScrollTrigger
@@ -460,8 +475,13 @@
             });
         });
 
-        // --- 3. Navbar Scroll Logic ---
+        // --- 3. Navbar & Mobile Menu Logic ---
         const navbar = document.getElementById('main-nav');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const closeMenuBtn = document.getElementById('close-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
         lenis.on('scroll', (e) => {
             if (e.scroll > 50) {
                 navbar.classList.add('bg-neutral-950/90', 'backdrop-blur-md', 'py-4', 'border-b', 'border-white/5');
@@ -470,6 +490,26 @@
                 navbar.classList.remove('bg-neutral-950/90', 'backdrop-blur-md', 'py-4', 'border-b', 'border-white/5');
                 navbar.classList.add('py-8');
             }
+        });
+
+        // Open Mobile Menu
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('translate-x-full');
+            document.body.classList.add('no-scroll');
+        });
+
+        // Close Mobile Menu
+        closeMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('translate-x-full');
+            document.body.classList.remove('no-scroll');
+        });
+
+        // Close Mobile Menu on Link Click
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('translate-x-full');
+                document.body.classList.remove('no-scroll');
+            });
         });
 
         // --- 4. Premium Load Animations (Preloader & Hero) ---
