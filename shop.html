@@ -45,19 +45,14 @@
             overflow-x: hidden;
         }
 
-        /* Prevent scrolling during preloader */
-        .no-scroll {
-            overflow: hidden !important;
-        }
+        .no-scroll { overflow: hidden !important; }
 
-        /* Subtle Premium Noise Texture */
         .noise-bg {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             pointer-events: none; z-index: 9998; opacity: 0.04;
             background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
         }
 
-        /* Preloader */
         #preloader {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-color: #0d0806; z-index: 10000;
@@ -66,7 +61,6 @@
 
         .text-4xl { font-size: 2rem !important; line-height: 2.5rem; }
 
-        /* Custom Cursor */
         .cursor-dot, .cursor-outline {
             position: fixed; top: 0; left: 0; transform: translate(-50%, -50%);
             border-radius: 50%; z-index: 9999; pointer-events: none;
@@ -83,7 +77,6 @@
 
         ::-webkit-scrollbar { display: none; }
 
-        /* Custom Checkbox Styles */
         .filter-checkbox { display: none; }
         .filter-label {
             display: flex; align-items: center; gap: 10px; cursor: pointer;
@@ -99,13 +92,10 @@
             background-color: #fdfbf7; border-color: #fdfbf7;
         }
         .filter-checkbox:checked + .filter-label { color: #fdfbf7; }
-        
-        /* Removed CSS transition for product-item to avoid conflict with GSAP */
     </style>
 </head>
 <body class="antialiased selection:bg-gray-400 selection:text-black no-scroll">
 
-    <!-- Preloader -->
     <div id="preloader">
         <h2 class="font-display font-bold text-2xl tracking-[0.3em] text-white overflow-hidden">
             <span class="inline-block transform translate-y-full preloader-text">ASHI LEATHER.</span>
@@ -116,7 +106,6 @@
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
 
-    <!-- Navbar -->
     <nav id="main-nav" class="fixed top-0 left-0 w-full z-50 px-6 py-4 border-b border-white/5 bg-neutral-950/90 backdrop-blur-md flex justify-between items-center transition-all duration-700 pointer-events-none">
         <a href="index.html" class="font-display font-bold text-2xl tracking-tighter pointer-events-auto hover-target magnetic relative p-2">ASHI LEATHER.</a>
         <div class="hidden md:flex gap-8 text-sm uppercase tracking-widest font-medium pointer-events-auto">
@@ -125,16 +114,14 @@
         </div>
     </nav>
 
-    <!-- Page Header -->
     <header class="pt-40 pb-20 px-6 md:px-12 lg:px-24 bg-neutral-950 text-center border-b border-white/5">
         <h1 class="font-display font-bold text-4xl md:text-6xl uppercase tracking-tighter text-white gs-reveal">The Archive</h1>
         <p class="text-gray-400 text-sm tracking-[0.2em] uppercase mt-4 gs-reveal">Complete Collection</p>
     </header>
 
-    <!-- Shop Layout -->
     <section class="py-16 px-6 md:px-12 lg:px-24 bg-neutral-900 flex flex-col lg:flex-row gap-16 min-h-screen">
         
-        <!-- Sidebar / Filters -->
+        <!-- Sidebar / Dynamic Filters -->
         <aside class="w-full lg:w-1/4 pointer-events-auto gs-reveal">
             <div class="sticky top-32">
                 <div class="flex justify-between items-center mb-8 pb-4 border-b border-white/10">
@@ -142,63 +129,31 @@
                     <button id="reset-filters" class="text-xs uppercase tracking-widest text-gray-500 hover:text-white transition-colors hover-target">Reset</button>
                 </div>
 
-                <!-- Size Filter -->
                 <div class="mb-8">
                     <h4 class="text-sm font-semibold uppercase tracking-widest text-white mb-4">Size</h4>
-                    <div class="flex flex-col gap-3">
-                        <input type="checkbox" id="size-s" class="filter-checkbox" value="S" data-filter="size">
-                        <label for="size-s" class="filter-label hover-target"><div class="filter-box"></div> Small</label>
-                        
-                        <input type="checkbox" id="size-m" class="filter-checkbox" value="M" data-filter="size">
-                        <label for="size-m" class="filter-label hover-target"><div class="filter-box"></div> Medium</label>
-                        
-                        <input type="checkbox" id="size-l" class="filter-checkbox" value="L" data-filter="size">
-                        <label for="size-l" class="filter-label hover-target"><div class="filter-box"></div> Large</label>
+                    <div id="filter-size-container" class="flex flex-col gap-3">
+                        <!-- Loaded dynamically -->
                     </div>
                 </div>
 
-                <!-- Finish Filter -->
                 <div class="mb-8">
                     <h4 class="text-sm font-semibold uppercase tracking-widest text-white mb-4">Finish</h4>
-                    <div class="flex flex-col gap-3">
-                        <input type="checkbox" id="finish-matte" class="filter-checkbox" value="Matte" data-filter="finish">
-                        <label for="finish-matte" class="filter-label hover-target"><div class="filter-box"></div> Matte</label>
-                        
-                        <input type="checkbox" id="finish-glossy" class="filter-checkbox" value="Glossy" data-filter="finish">
-                        <label for="finish-glossy" class="filter-label hover-target"><div class="filter-box"></div> Glossy</label>
-                        
-                        <input type="checkbox" id="finish-vintage" class="filter-checkbox" value="Vintage" data-filter="finish">
-                        <label for="finish-vintage" class="filter-label hover-target"><div class="filter-box"></div> Vintage</label>
+                    <div id="filter-finish-container" class="flex flex-col gap-3">
+                        <!-- Loaded dynamically -->
                     </div>
                 </div>
 
-                <!-- Color Filter -->
                 <div class="mb-8">
                     <h4 class="text-sm font-semibold uppercase tracking-widest text-white mb-4">Color</h4>
-                    <div class="flex flex-col gap-3">
-                        <input type="checkbox" id="color-black" class="filter-checkbox" value="Black" data-filter="color">
-                        <label for="color-black" class="filter-label hover-target"><div class="filter-box"></div> Pitch Black</label>
-                        
-                        <input type="checkbox" id="color-brown" class="filter-checkbox" value="Brown" data-filter="color">
-                        <label for="color-brown" class="filter-label hover-target"><div class="filter-box"></div> Dark Brown</label>
-                        
-                        <input type="checkbox" id="color-tan" class="filter-checkbox" value="Tan" data-filter="color">
-                        <label for="color-tan" class="filter-label hover-target"><div class="filter-box"></div> Burnished Tan</label>
+                    <div id="filter-color-container" class="flex flex-col gap-3">
+                        <!-- Loaded dynamically -->
                     </div>
                 </div>
 
-                <!-- Material Filter -->
                 <div class="mb-8">
                     <h4 class="text-sm font-semibold uppercase tracking-widest text-white mb-4">Material</h4>
-                    <div class="flex flex-col gap-3">
-                        <input type="checkbox" id="mat-cowhide" class="filter-checkbox" value="Cowhide" data-filter="material">
-                        <label for="mat-cowhide" class="filter-label hover-target"><div class="filter-box"></div> Cowhide</label>
-                        
-                        <input type="checkbox" id="mat-sheepskin" class="filter-checkbox" value="Sheepskin" data-filter="material">
-                        <label for="mat-sheepskin" class="filter-label hover-target"><div class="filter-box"></div> Sheepskin</label>
-                        
-                        <input type="checkbox" id="mat-suede" class="filter-checkbox" value="Suede" data-filter="material">
-                        <label for="mat-suede" class="filter-label hover-target"><div class="filter-box"></div> Suede</label>
+                    <div id="filter-material-container" class="flex flex-col gap-3">
+                        <!-- Loaded dynamically -->
                     </div>
                 </div>
             </div>
@@ -211,139 +166,17 @@
             </div>
             
             <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10">
-                
-                <!-- Product 1 -->
-                <div class="product-item product-card group cursor-pointer hover-target pointer-events-auto" 
-                     data-size="S,M,L" data-finish="Matte" data-color="Black" data-material="Cowhide">
-                    <div class="relative overflow-hidden aspect-[3/4] bg-neutral-950 rounded-sm">
-                        <img src="https://images.unsplash.com/photo-1489286696299-aa7486820bd5?q=80&w=800&auto=format&fit=crop" alt="The Classic Biker" class="object-cover w-full h-full transition-transform duration-1000 group-hover:scale-110 opacity-90 group-hover:opacity-100" />
-                        <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/90 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-500">
-                            <button class="whatsapp-btn w-full py-4 bg-white text-black font-semibold uppercase text-xs tracking-[0.2em] hover:bg-gray-200 transition-colors flex items-center justify-center gap-3">
-                                Order via WhatsApp
-                            </button>
-                        </div>
-                    </div>
-                    <div class="mt-6 flex justify-between items-start">
-                        <div>
-                            <h4 class="product-title font-display font-bold text-lg uppercase tracking-tight">The Classic Biker</h4>
-                            <p class="text-gray-500 text-xs tracking-widest uppercase mt-1">Black / Matte / Cowhide</p>
-                        </div>
-                        <span class="product-price font-medium">$895</span>
-                    </div>
-                </div>
-
-                <!-- Product 2 -->
-                <div class="product-item product-card group cursor-pointer hover-target pointer-events-auto" 
-                     data-size="M,L" data-finish="Vintage" data-color="Brown" data-material="Sheepskin">
-                    <div class="relative overflow-hidden aspect-[3/4] bg-neutral-950 rounded-sm">
-                        <img src="https://images.unsplash.com/photo-1615397815341-bb06f6d55c94?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGxlYXRoZXIlMjBqYWNrZXQlMjB3b21lbnxlbnwwfHwwfHx8MA%3D%3D" alt="The Aviator" class="object-cover w-full h-full transition-transform duration-1000 group-hover:scale-110 opacity-90 group-hover:opacity-100" />
-                        <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/90 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-500">
-                            <button class="whatsapp-btn w-full py-4 bg-white text-black font-semibold uppercase text-xs tracking-[0.2em] hover:bg-gray-200 transition-colors flex items-center justify-center gap-3">
-                                Order via WhatsApp
-                            </button>
-                        </div>
-                    </div>
-                    <div class="mt-6 flex justify-between items-start">
-                        <div>
-                            <h4 class="product-title font-display font-bold text-lg uppercase tracking-tight">The Aviator</h4>
-                            <p class="text-gray-500 text-xs tracking-widest uppercase mt-1">Brown / Vintage / Sheepskin</p>
-                        </div>
-                        <span class="product-price font-medium">$1,250</span>
-                    </div>
-                </div>
-
-                <!-- Product 3 -->
-                <div class="product-item product-card group cursor-pointer hover-target pointer-events-auto" 
-                     data-size="S,M" data-finish="Glossy" data-color="Black" data-material="Cowhide">
-                    <div class="relative overflow-hidden aspect-[3/4] bg-neutral-950 rounded-sm">
-                        <img src="https://images.unsplash.com/photo-1559551409-dadc959f76b8?q=80&w=800&auto=format&fit=crop" alt="The Asymmetric" class="object-cover w-full h-full transition-transform duration-1000 group-hover:scale-110 opacity-90 group-hover:opacity-100" />
-                        <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/90 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-500">
-                            <button class="whatsapp-btn w-full py-4 bg-white text-black font-semibold uppercase text-xs tracking-[0.2em] hover:bg-gray-200 transition-colors flex items-center justify-center gap-3">
-                                Order via WhatsApp
-                            </button>
-                        </div>
-                    </div>
-                    <div class="mt-6 flex justify-between items-start">
-                        <div>
-                            <h4 class="product-title font-display font-bold text-lg uppercase tracking-tight">The Asymmetric</h4>
-                            <p class="text-gray-500 text-xs tracking-widest uppercase mt-1">Black / Glossy / Cowhide</p>
-                        </div>
-                        <span class="product-price font-medium">$925</span>
-                    </div>
-                </div>
-
-                <!-- Product 4 -->
-                <div class="product-item product-card group cursor-pointer hover-target pointer-events-auto" 
-                     data-size="M,L" data-finish="Matte" data-color="Tan" data-material="Suede">
-                    <div class="relative overflow-hidden aspect-[3/4] bg-neutral-950 rounded-sm">
-                        <img src="https://www.thejacketmaker.pk/cdn/shop/files/Men_s_Dean_Black_Leather_Biker_Jacket-22_5694889e-40cb-487b-a836-8bbb436f661b_360x.jpg?v=1760635636" alt="The Suede Trucker" class="object-cover w-full h-full transition-transform duration-1000 group-hover:scale-110 opacity-90 group-hover:opacity-100" />
-                        <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/90 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-500">
-                            <button class="whatsapp-btn w-full py-4 bg-white text-black font-semibold uppercase text-xs tracking-[0.2em] hover:bg-gray-200 transition-colors flex items-center justify-center gap-3">
-                                Order via WhatsApp
-                            </button>
-                        </div>
-                    </div>
-                    <div class="mt-6 flex justify-between items-start">
-                        <div>
-                            <h4 class="product-title font-display font-bold text-lg uppercase tracking-tight">The Trucker</h4>
-                            <p class="text-gray-500 text-xs tracking-widest uppercase mt-1">Tan / Matte / Suede</p>
-                        </div>
-                        <span class="product-price font-medium">$795</span>
-                    </div>
-                </div>
-
-                <!-- Product 5 -->
-                <div class="product-item product-card group cursor-pointer hover-target pointer-events-auto" 
-                     data-size="S,M,L" data-finish="Matte" data-color="Brown" data-material="Cowhide">
-                    <div class="relative overflow-hidden aspect-[3/4] bg-neutral-950 rounded-sm">
-                        <img src="https://images.unsplash.com/photo-1615908280461-d7a332579330?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGxlYXRoZXIlMjBqYWNrZXQlMjBNRU5TfGVufDB8fDB8fHww" alt="The Cafe Racer" class="object-cover w-full h-full transition-transform duration-1000 group-hover:scale-110 opacity-90 group-hover:opacity-100" />
-                        <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/90 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-500">
-                            <button class="whatsapp-btn w-full py-4 bg-white text-black font-semibold uppercase text-xs tracking-[0.2em] hover:bg-gray-200 transition-colors flex items-center justify-center gap-3">
-                                Order via WhatsApp
-                            </button>
-                        </div>
-                    </div>
-                    <div class="mt-6 flex justify-between items-start">
-                        <div>
-                            <h4 class="product-title font-display font-bold text-lg uppercase tracking-tight">The Cafe Racer</h4>
-                            <p class="text-gray-500 text-xs tracking-widest uppercase mt-1">Brown / Matte / Cowhide</p>
-                        </div>
-                        <span class="product-price font-medium">$850</span>
-                    </div>
-                </div>
-
-                <!-- Product 6 -->
-                <div class="product-item product-card group cursor-pointer hover-target pointer-events-auto" 
-                     data-size="S,M" data-finish="Matte" data-color="Black" data-material="Sheepskin">
-                    <div class="relative overflow-hidden aspect-[3/4] bg-neutral-950 rounded-sm">
-                        <img src="https://images.unsplash.com/photo-1641943632479-3798ef1e14c6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGxlYXRoZXIlMjBqYWNrZXQlMjBNRU5TfGVufDB8fDB8fHwwp" alt="The Noir Trench" class="object-cover w-full h-full transition-transform duration-1000 group-hover:scale-110 opacity-90 group-hover:opacity-100" />
-                        <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/90 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-500">
-                            <button class="whatsapp-btn w-full py-4 bg-white text-black font-semibold uppercase text-xs tracking-[0.2em] hover:bg-gray-200 transition-colors flex items-center justify-center gap-3">
-                                Order via WhatsApp
-                            </button>
-                        </div>
-                    </div>
-                    <div class="mt-6 flex justify-between items-start">
-                        <div>
-                            <h4 class="product-title font-display font-bold text-lg uppercase tracking-tight">The Noir Trench</h4>
-                            <p class="text-gray-500 text-xs tracking-widest uppercase mt-1">Black / Matte / Sheepskin</p>
-                        </div>
-                        <span class="product-price font-medium">$1,450</span>
-                    </div>
-                </div>
-
+                <!-- Products loaded dynamically -->
             </div>
         </main>
     </section>
 
-    <!-- Footer -->
     <footer class="py-24 px-6 md:px-12 lg:px-24 border-t border-white/5 bg-neutral-950">
         <div class="flex flex-col md:flex-row justify-between items-center gap-10">
             <div class="text-center md:text-left">
                 <h2 class="font-display font-bold text-3xl tracking-tighter mb-4 text-white">ASHI LEATHER.</h2>
                 <p class="text-gray-500 text-sm tracking-[0.2em] uppercase">Uncompromising quality since 2024.</p>
             </div>
-            
             <div class="flex gap-8 text-xs uppercase tracking-widest font-medium pointer-events-auto">
                 <a href="#" class="text-gray-400 hover:text-white transition-colors hover-target">Instagram</a>
                 <a href="#" class="text-gray-400 hover:text-white transition-colors hover-target">Twitter</a>
@@ -374,22 +207,33 @@
             gsap.to(cursorOutline, { x: e.clientX, y: e.clientY, duration: 0.2, ease: "power2.out" });
         });
 
-        const hoverTargets = document.querySelectorAll('.hover-target, .filter-label');
-        hoverTargets.forEach(target => {
-            target.addEventListener('mouseenter', () => document.body.classList.add('cursor-active'));
-            target.addEventListener('mouseleave', () => document.body.classList.remove('cursor-active'));
-        });
+        function attachCursorEvents() {
+            const hoverTargets = document.querySelectorAll('.hover-target, .filter-label');
+            hoverTargets.forEach(target => {
+                // Ensure event is not attached multiple times
+                target.removeEventListener('mouseenter', addCursorHover);
+                target.removeEventListener('mouseleave', removeCursorHover);
+                target.addEventListener('mouseenter', addCursorHover);
+                target.addEventListener('mouseleave', removeCursorHover);
+            });
+        }
+        function addCursorHover() { document.body.classList.add('cursor-active'); }
+        function removeCursorHover() { document.body.classList.remove('cursor-active'); }
 
-        // --- 3. Filtering Logic ---
-        const checkboxes = document.querySelectorAll('.filter-checkbox');
-        const products = document.querySelectorAll('.product-item');
+        // --- 3. Dynamic Filtering System ---
         const noProductsMsg = document.getElementById('no-products-msg');
         const resetBtn = document.getElementById('reset-filters');
 
-        // Set all products to initial visible state BEFORE animations start
-        gsap.set(products, { opacity: 1, scale: 1 });
+        function attachFilterEvents() {
+            const checkboxes = document.querySelectorAll('.filter-checkbox');
+            checkboxes.forEach(cb => {
+                cb.removeEventListener('change', filterProducts);
+                cb.addEventListener('change', filterProducts);
+            });
+        }
 
         function filterProducts() {
+            const products = document.querySelectorAll('.product-item');
             const filters = {
                 size: Array.from(document.querySelectorAll('input[data-filter="size"]:checked')).map(cb => cb.value),
                 finish: Array.from(document.querySelectorAll('input[data-filter="finish"]:checked')).map(cb => cb.value),
@@ -400,15 +244,15 @@
             let visibleCount = 0;
 
             products.forEach(product => {
-                const pSizes = product.dataset.size.split(',');
-                const pFinish = product.dataset.finish;
-                const pColor = product.dataset.color;
-                const pMaterial = product.dataset.material;
+                const pSizes = product.dataset.size ? product.dataset.size.split(',') : [];
+                const pFinishes = product.dataset.finish ? product.dataset.finish.split(',') : [];
+                const pColors = product.dataset.color ? product.dataset.color.split(',') : [];
+                const pMaterials = product.dataset.material ? product.dataset.material.split(',') : [];
 
                 const matchSize = filters.size.length === 0 || filters.size.some(s => pSizes.includes(s));
-                const matchFinish = filters.finish.length === 0 || filters.finish.includes(pFinish);
-                const matchColor = filters.color.length === 0 || filters.color.includes(pColor);
-                const matchMaterial = filters.material.length === 0 || filters.material.includes(pMaterial);
+                const matchFinish = filters.finish.length === 0 || filters.finish.some(f => pFinishes.includes(f));
+                const matchColor = filters.color.length === 0 || filters.color.some(c => pColors.includes(c));
+                const matchMaterial = filters.material.length === 0 || filters.material.some(m => pMaterials.includes(m));
 
                 if (matchSize && matchFinish && matchColor && matchMaterial) {
                     product.style.display = 'block';
@@ -421,7 +265,7 @@
                 }
             });
 
-            if (visibleCount === 0) {
+            if (visibleCount === 0 && products.length > 0) {
                 noProductsMsg.classList.remove('hidden');
             } else {
                 noProductsMsg.classList.add('hidden');
@@ -430,26 +274,166 @@
             setTimeout(() => { ScrollTrigger.refresh(); }, 400);
         }
 
-        checkboxes.forEach(cb => {
-            cb.addEventListener('change', filterProducts);
-        });
-
         resetBtn.addEventListener('click', () => {
-            checkboxes.forEach(cb => cb.checked = false);
+            document.querySelectorAll('.filter-checkbox').forEach(cb => cb.checked = false);
             filterProducts();
         });
 
-        // Run the filter immediately to set correct states
-        filterProducts();
+        // --- 4. Fetch Dynamic Attributes (Filters) ---
+        async function loadFilters() {
+            try {
+                const response = await fetch('http://localhost:8000/api/attributes');
+                const result = await response.json();
 
-        // --- 4. Preloader & Intro Animations ---
+                if (result.success) {
+                    const data = result.data;
+                    
+                    // Render Sizes (Uses Abbreviation for value)
+                    document.getElementById('filter-size-container').innerHTML = data.sizes.map(s => `
+                        <input type="checkbox" id="size-${s.id}" class="filter-checkbox" value="${s.abriviation}" data-filter="size">
+                        <label for="size-${s.id}" class="filter-label hover-target"><div class="filter-box"></div> ${s.name} (${s.abriviation})</label>
+                    `).join('');
+
+                    // Render Finishes
+                    document.getElementById('filter-finish-container').innerHTML = data.finishes.map(f => `
+                        <input type="checkbox" id="finish-${f.id}" class="filter-checkbox" value="${f.name}" data-filter="finish">
+                        <label for="finish-${f.id}" class="filter-label hover-target"><div class="filter-box"></div> ${f.name}</label>
+                    `).join('');
+
+                    // Render Colors
+                    document.getElementById('filter-color-container').innerHTML = data.colors.map(c => `
+                        <input type="checkbox" id="color-${c.id}" class="filter-checkbox" value="${c.name}" data-filter="color">
+                        <label for="color-${c.id}" class="filter-label hover-target"><div class="filter-box"></div> ${c.name}</label>
+                    `).join('');
+
+                    // Render Materials
+                    document.getElementById('filter-material-container').innerHTML = data.materials.map(m => `
+                        <input type="checkbox" id="mat-${m.id}" class="filter-checkbox" value="${m.name}" data-filter="material">
+                        <label for="mat-${m.id}" class="filter-label hover-target"><div class="filter-box"></div> ${m.name}</label>
+                    `).join('');
+
+                    attachFilterEvents();
+                    attachCursorEvents();
+                }
+            } catch (error) {
+                console.error('Filters API Load Error:', error);
+            }
+        }
+
+        // --- 5. Fetch Dynamic Products ---
+        async function loadProducts() {
+            try {
+                const response = await fetch('http://localhost:8000/api/products');
+                const result = await response.json();
+
+                if (result.success && result.data && result.data.length > 0) {
+                    const grid = document.getElementById('product-grid');
+                    grid.innerHTML = ''; 
+
+                    result.data.forEach(product => {
+                        const imgUrl = (product.images && product.images.length > 0) 
+                            ? `http://localhost:8000${product.images[0].url}` 
+                            : 'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500&q=80';
+
+                        const price = parseFloat(product.discount_price) > 0 ? product.discount_price : product.price;
+                        
+                        const sizeData = product.sizes ? product.sizes.join(',') : '';
+                        const finishData = product.finishes ? product.finishes.join(',') : '';
+                        const colorData = product.colors ? product.colors.join(',') : '';
+                        const materialData = product.materials ? product.materials.join(',') : '';
+
+                        const detailsText = [
+                            product.colors[0] || 'Unknown', 
+                            product.finishes[0] || 'Standard', 
+                            product.materials[0] || 'Leather'
+                        ].join(' / ');
+
+                        const cardHtml = `
+                        <div class="product-item product-card group cursor-pointer hover-target pointer-events-auto" 
+                             data-size="${sizeData}" 
+                             data-finish="${finishData}" 
+                             data-color="${colorData}" 
+                             data-material="${materialData}"
+                             style="opacity: 0; transform: translateY(40px);">
+                            <div class="relative overflow-hidden aspect-[3/4] bg-neutral-950 rounded-sm">
+                                <img src="${imgUrl}" alt="${product.name}" class="object-cover w-full h-full transition-transform duration-1000 group-hover:scale-110 opacity-90 group-hover:opacity-100" />
+                                <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/90 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                                    <button class="whatsapp-btn w-full py-4 bg-white text-black font-semibold uppercase text-xs tracking-[0.2em] hover:bg-gray-200 transition-colors flex items-center justify-center gap-3">
+                                        Order via WhatsApp
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="mt-6 flex justify-between items-start">
+                                <div>
+                                    <h4 class="product-title font-display font-bold text-lg uppercase tracking-tight">${product.name}</h4>
+                                    <p class="text-gray-500 text-xs tracking-widest uppercase mt-1">${detailsText}</p>
+                                </div>
+                                <span class="product-price font-medium">Rs. ${parseFloat(price).toLocaleString()}</span>
+                            </div>
+                        </div>
+                        `;
+                        grid.insertAdjacentHTML('beforeend', cardHtml);
+                    });
+
+                    attachCursorEvents();
+                    attachWhatsAppEvents();
+                    
+                    gsap.to('.product-item', { 
+                        opacity: 1, 
+                        y: 0, 
+                        duration: 1, 
+                        stagger: 0.1, 
+                        ease: "expo.out",
+                        onComplete: filterProducts 
+                    });
+                    
+                } else {
+                    document.getElementById('product-grid').innerHTML = '<p class="text-gray-400">No products available at the moment.</p>';
+                }
+            } catch (error) {
+                console.error('Products API Load Error:', error);
+            }
+        }
+
+        function attachWhatsAppEvents() {
+            document.querySelectorAll('.whatsapp-btn').forEach(btn => {
+                btn.replaceWith(btn.cloneNode(true));
+            });
+
+            document.querySelectorAll('.whatsapp-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation(); 
+                    
+                    const card = btn.closest('.product-card');
+                    const titleElement = card.querySelector('.product-title');
+                    const priceElement = card.querySelector('.product-price');
+                    
+                    if (titleElement && priceElement) {
+                        const title = titleElement.innerText.trim();
+                        const price = priceElement.innerText.trim();
+                        const phoneNumber = "923122933457";
+                        const message = `Hi, I am interested in purchasing ${title} priced at ${price}. Please provide more details.`;
+                        
+                        const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+                        window.open(whatsappUrl, '_blank');
+                    }
+                });
+            });
+        }
+
+        // --- 6. Initialization Sequence ---
         window.addEventListener("load", () => {
+            // Initiate API calls immediately
+            loadFilters();
+
             const tl = gsap.timeline();
-            
             tl.to('.preloader-text', { y: '0%', duration: 1, ease: 'expo.out' })
               .to('#preloader', { y: '-100%', duration: 1.2, ease: 'expo.inOut', delay: 0.5, onComplete: () => {
                   document.body.classList.remove('no-scroll');
                   ScrollTrigger.refresh();
+                  // Load products after preloader hides
+                  loadProducts();
               }})
               .from(".gs-reveal", { 
                   y: 40, 
@@ -459,20 +443,6 @@
                   ease: "expo.out",
                   clearProps: "all" 
               }, "-=0.5");
-        });
-
-        // --- 5. WhatsApp Order Logic ---
-        document.querySelectorAll('.whatsapp-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation(); 
-                const card = btn.closest('.product-card');
-                const title = card.querySelector('.product-title').innerText.trim();
-                const price = card.querySelector('.product-price').innerText.trim();
-                const phoneNumber = "923122933457";
-                const message = `Hi, I am interested in purchasing ${title} priced at ${price}. Please provide more details.`;
-                window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, '_blank');
-            });
         });
 
     </script>
